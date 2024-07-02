@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-ios:
-    name: iOS Build
+    name: 🎉 iOS Build
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,4 +39,4 @@ jobs:
           file: build/ios/iphoneos/FlutterIpaExport.ipa
           tag: v1.0
           overwrite: true
-          body: "First Release"
+          body: "This is first release"
