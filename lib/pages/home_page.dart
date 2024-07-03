@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   // hive box refference 
-  final _toDoBox = Hive.box('toDoBox');
+  final _toDoBox = Hive.box('todobox');
   ToDoDatabase db = ToDoDatabase();
 
   @override
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       // Data already exist
       db.loadData();
     }
-
+    
     super.initState();
   }
 
@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       db.toDoList[index][1] = !db.toDoList[index][1];
     });
+    db.updateDataBase();
   }
 
   // Delete task
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       db.toDoList.removeAt(index);
     });
+    db.updateDataBase();
   }
 
   // Save new task method 
@@ -56,8 +58,9 @@ class _HomePageState extends State<HomePage> {
       if (_controller.text.isNotEmpty) {
         db.toDoList.add([_controller.text, false]);
         _controller.clear();
+        Navigator.pop(context);
       }
-      Navigator.pop(context);
+      db.updateDataBase();
     });
   }
   // Create new task method
@@ -77,7 +80,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text("TO DO"))),
+      appBar: AppBar(title: const Center(child: Text("To Do List", style:TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold))),),
       floatingActionButton: FloatingActionButton(
         onPressed: () => createNewTask(),
         child: const Icon(Icons.add),

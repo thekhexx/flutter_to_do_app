@@ -4,16 +4,15 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class ToDoTile extends StatelessWidget {
   final String taskName;
   final bool isCompleted;
-  Function(bool?)? onChanged;
-  Function(BuildContext)? deleteFunction;
+  final Function(bool?)? onChanged;
+  final Function(BuildContext)? deleteFunction;
 
-   ToDoTile({
-      super.key,
+  const ToDoTile(
+      {super.key,
       required this.taskName,
       required this.isCompleted,
       required this.onChanged,
-      required this.deleteFunction
-    });
+      required this.deleteFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -27,24 +26,36 @@ class ToDoTile extends StatelessWidget {
               onPressed: deleteFunction,
               icon: Icons.delete,
               backgroundColor: Colors.red.shade300,
-              borderRadius: const BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  bottomRight: Radius.circular(12)),
             ),
           ],
         ),
         child: Container(
           padding: const EdgeInsets.all(24.0),
-          decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(12.0)),
+          decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 189, 233, 255),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12))),
           child: Row(
             children: [
               // checkbox
-              Checkbox(value: isCompleted, onChanged: onChanged, activeColor: Colors.grey[900],),
-        
+              Checkbox(
+                value: isCompleted,
+                onChanged: onChanged,
+                activeColor: Colors.grey[900],
+              ),
+
               // task name
               Text(
                 taskName,
                 style: TextStyle(
-                  decoration: isCompleted ? TextDecoration.lineThrough : TextDecoration.none
-                ),
+                    fontSize: 24.0,
+                    decoration: isCompleted
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none),
               ),
             ],
           ),
